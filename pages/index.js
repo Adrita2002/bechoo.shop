@@ -16,7 +16,7 @@ export default function Home() {
         </h1>
         <h2>An <span style={{ color: "maroon" }}>exclusive</span> resale platform for <span style={{ color: "maroon" }}>NITS</span></h2>
         <br />
-        <h3>Made with ❤️ by <a style={{ color: "blue" }} href='https://www.linkedin.com/in/gauravdas014/' target="_blank" >Gaurav</a></h3>
+        <h3>Made with ❤️ by <a style={{ color: "blue" }} rel="noreferrer" href='https://www.linkedin.com/in/gauravdas014/' target="_blank" >Gaurav</a></h3>
       </main >
     </div >
   )
