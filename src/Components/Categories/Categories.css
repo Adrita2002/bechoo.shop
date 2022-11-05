@@ -1,0 +1,10 @@
+.categories{
+    margin:0;
+    background-color: #372948;
+    color:aliceblue
+}
+ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+}

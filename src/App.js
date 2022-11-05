@@ -1,30 +1,21 @@
-import logo from './logo.svg';
+import fire from './fire.png';
 import './App.css';
 import Navbar from './Components/Navbar/Navbar';
-import SearchBar from './Components/SearchBar/SearchBar';
-import ItemCard from './Components/ItemCard/ItemCard';
+import SearchBox from './Components/SearchBox/SearchBox';
+import SellBar from './Components/SellBar/SellBar';
+import ItemCards from './Components/ItemCards/ItemCards';
+import Grid from '@mui/material/Grid';
+import { makeStyles } from '@mui/material';
+import ItemZone from './Components/ItemZone/ItemZone';
 function App() {
   return (
     <div className="App">
-      <SearchBar/>
-      <h2 className='item-title'>Recommended Items</h2>
-      <div className='items'>
-      <ItemCard/>
-      <ItemCard/>
-      <ItemCard/>
-      <ItemCard/>
-
-      </div>
-      <h2 className='item-title'>Latest Items</h2>
-      <div className='items items-bottom'>
-      <ItemCard/>
-      <ItemCard/>
-      <ItemCard/>
-      <ItemCard/>
-      </div>
-     <Navbar/>
-     
-
+      <Navbar/>
+      
+        <h1 className='item-zone'>Items on Sale <img src = {fire}/></h1>
+     <ItemZone/>
+      <SellBar/>
+      
     </div>
   );
 }
