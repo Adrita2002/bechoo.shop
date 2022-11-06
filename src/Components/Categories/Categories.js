@@ -14,7 +14,7 @@ const Categories = ({data}) => {
         {
             uniqueCategory.map(item=>{
               
-                return <li key={item.id}>{item}</li>
+                return <li key={item.id}><a className='category-list'href='/'>{item}</a></li>
             })
         }
        </ul>

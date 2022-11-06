@@ -2,3 +2,6 @@
     height:70%;
     width:100%;
 }
+.item-heading{
+    display: flex;
+}

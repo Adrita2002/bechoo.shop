@@ -8,6 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Categories from '../Categories/Categories';
+import Badge from '@mui/material/Badge';
 import './Navbar.css'
 const Navbar = () => {
   return (
@@ -17,9 +18,15 @@ const Navbar = () => {
         <SearchBox placeholder='Search for items...' data={ItemData}/>
        
         <div className='btn-wrapper'>
-         <ChatBubbleOutlineIcon/>  
-        <NotificationsIcon/>
-        <ShoppingCartIcon/>
+        <Badge badgeContent={4} color="secondary">
+  <ChatBubbleOutlineIcon color="white" />
+</Badge>
+<Badge badgeContent={4} color="secondary">
+  <NotificationsIcon color="white" />
+</Badge>
+        <Badge badgeContent={4} color="secondary">
+  <ShoppingCartIcon color="white" />
+</Badge>
         <div className='account'><AccountCircleIcon/>
         <KeyboardArrowDownIcon/></div>
            
