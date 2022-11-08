@@ -1,4 +1,5 @@
 import React from 'react'
+import fire from './fire.png';
 import ItemCards from '../ItemCards/ItemCards';
 import Grid from '@mui/material/Grid';
 import './ItemZone.css'
@@ -6,6 +7,7 @@ import dataItem from '../Data.json'
 const ItemZone = () => {
   return (
     <div className='itemZone'>
+      <h1 className='item-zone'>Items on Sale <img src = {fire}/></h1>
          <Grid container spacing={4}>
         {
             dataItem.map(data=>{

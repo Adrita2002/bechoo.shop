@@ -1,6 +1,7 @@
 import React from 'react'
 import dataItem from '../Data.json'
 import './Categories.css'
+import {Link, useParams} from 'react-router-dom'
 const Categories = ({data}) => {
     const uniqueCategory = []
     data.map(datum=>{
@@ -14,7 +15,7 @@ const Categories = ({data}) => {
         {
             uniqueCategory.map(item=>{
               
-                return <li key={item.id}><a className='category-list'href='/'>{item}</a></li>
+                return <li key={item.id}><Link className='category-list'to='/categories'>{item}</Link></li>
             })
         }
        </ul>

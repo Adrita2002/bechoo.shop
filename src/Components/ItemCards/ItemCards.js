@@ -14,7 +14,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import {createSearchParams, useNavigate, Link} from 'react-router-dom'
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -23,10 +23,13 @@ const ExpandMore = styled((props) => {
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
+
   }),
+  cursor:'pointer'
 }));
 
 export default function RecipeReviewCard({id, img, title}) {
+ const navigate = useNavigate()
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -34,7 +37,7 @@ export default function RecipeReviewCard({id, img, title}) {
   };
 
   return (
-    <Card sx={{ maxWidth: 250,minHeight:250}}>
+    <Card onClick={()=>navigate(`individual/${id}`)} sx={{ maxWidth: 250,minHeight:250}}>
       <CardHeader subheader={title}   action={
           <IconButton aria-label="settings">
            <FavoriteIcon />
@@ -43,9 +46,11 @@ export default function RecipeReviewCard({id, img, title}) {
         component="img"
          sx={{minHeight:150}}
         image={img}
-        alt={title}
+        alt={title} 
       />
       <CardHeader subheader='Rs. 100'/>
+     
     </Card>
+   
   );
 }

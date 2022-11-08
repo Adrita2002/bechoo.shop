@@ -1,6 +1,7 @@
 .imgItem{
     height:70%;
     width:100%;
+    cursor: pointer;
 }
 .item-heading{
     display: flex;
