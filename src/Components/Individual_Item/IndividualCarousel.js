@@ -1,7 +1,9 @@
 import React from 'react'
-const IndividualCarousel = () => {
+const IndividualCarousel = ({images}) => {
   return (
-    <div>IndividualCarousel</div>
+    <div>
+       {images?.map((imgSrc, index) => (<img src={imgSrc} key={index} alt="Make sure to include a alt tag, because react might throw an error at build"/>))}
+    </div>
   )
 }
 

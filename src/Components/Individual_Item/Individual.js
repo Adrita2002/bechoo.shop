@@ -1,8 +1,9 @@
 import React from 'react'
 import IndividualDesc from './IndividualDesc'
-import './Individual.css'
+// import './Individual.css'
 import { useParams } from 'react-router-dom'
 import dataItem from '../Data.json'
+import IndividualCarousel from './IndividualCarousel'
 const Individual = () => {
     const {userId} = useParams();
   return (
@@ -10,7 +11,8 @@ const Individual = () => {
     {
         dataItem.map(data=>{
             if(userId==data.id)return(
-                <h2>{data.title}</h2>
+                // <h2 className ='item-heading'>{data.title}</h2>
+                <IndividualCarousel image={data.images}/>
                 )
         })
     }
