@@ -1,6 +1,6 @@
 import React from 'react'
 import IndividualDesc from './IndividualDesc'
-// import './Individual.css'
+ import './Individual.css'
 import { useParams } from 'react-router-dom'
 import dataItem from '../Data.json'
 import IndividualCarousel from './IndividualCarousel'

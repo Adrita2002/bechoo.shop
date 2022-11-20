@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import './Individual.css'
 const IndividualCarousel = ({ images }) => {
   console.log(images, "images")
   return (
@@ -9,12 +9,12 @@ const IndividualCarousel = ({ images }) => {
     //   {images?.map((imgSrc, index) => (<img src={imgSrc} key={index} alt="alt_tag" />))}
     // </div>
 
-    <Carousel>
+    <Carousel className='carousel'>
       {
         images?.map((imgSrc) => {
-          return <div>
+          return <div className='items'>
             <img src={imgSrc} />
-            <p className="legend">Legend 1</p>
+            
           </div>
         })
       }

@@ -9,7 +9,6 @@ ul{
     justify-content: space-evenly;
 }
 .category-list{
-    text-decoration: none;
-    color:white
+    cursor: pointer;
 }
   

@@ -37,7 +37,7 @@ export default function RecipeReviewCard({id, img, title}) {
   };
 
   return (
-    <Card onClick={()=>navigate(`individual/${id}`)} sx={{ maxWidth: 250,minHeight:250}}>
+    <Card onClick={()=>navigate(`/individual/${id}`)} sx={{ maxWidth: 250,minHeight:250}}>
       <CardHeader subheader={title}   action={
           <IconButton aria-label="settings">
            <FavoriteIcon />

@@ -20,8 +20,10 @@ function App() {
         <Route path=':userId' element={<Individual/>}/>
         </Route>
       
-      <Route path='categories' element={<CategoryPage/>}/>
       
+      <Route path='categories' element={<CategoryPage/>}>
+        <Route path=':userId' element={<CategoryPage/>}/>
+        </Route>
      </Routes>
       <SellBar/>
       
