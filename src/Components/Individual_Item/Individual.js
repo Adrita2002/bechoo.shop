@@ -5,17 +5,17 @@ import { useParams } from 'react-router-dom'
 import dataItem from '../Data.json'
 import IndividualCarousel from './IndividualCarousel'
 const Individual = () => {
-    const {userId} = useParams();
+  const { userId } = useParams();
   return (
     <div classname='item-container'>
-    {
-        dataItem.map(data=>{
-            if(userId==data.id)return(
-                // <h2 className ='item-heading'>{data.title}</h2>
-                <IndividualCarousel image={data.images}/>
-                )
+      {
+        dataItem.map(data => {
+          if (userId == data.id) return (
+            // <h2 className ='item-heading'>{data.title}</h2>
+            <IndividualCarousel images={data.images} />
+          )
         })
-    }
+      }
     </div>
   )
 }

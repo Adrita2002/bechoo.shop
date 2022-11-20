@@ -1,9 +1,36 @@
 import React from 'react'
-const IndividualCarousel = ({images}) => {
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+const IndividualCarousel = ({ images }) => {
+  console.log(images, "images")
   return (
-    <div>
-       {images?.map((imgSrc, index) => (<img src={imgSrc} key={index} alt="Make sure to include a alt tag, because react might throw an error at build"/>))}
-    </div>
+    // <div>
+    //   {images?.map((imgSrc, index) => (<img src={imgSrc} key={index} alt="alt_tag" />))}
+    // </div>
+
+    <Carousel>
+      {
+        images?.map((imgSrc) => {
+          return <div>
+            <img src={imgSrc} />
+            <p className="legend">Legend 1</p>
+          </div>
+        })
+      }
+      {/* <div>
+        <img src="assets/1.jpeg" />
+        <p className="legend">Legend 1</p>
+      </div>
+      <div>
+        <img src="assets/2.jpeg" />
+        <p className="legend">Legend 2</p>
+      </div>
+      <div>
+        <img src="assets/3.jpeg" />
+        <p className="legend">Legend 3</p>
+      </div> */}
+    </Carousel>
   )
 }
 
