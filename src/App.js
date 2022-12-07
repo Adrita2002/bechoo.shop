@@ -10,6 +10,7 @@ import ItemZone from './Components/ItemZone/ItemZone';
 import CategoryPage from './Components/CategoryPage/CategoryPage';
 import Individual from './Components/Individual_Item/Individual';
 import Error from './Components/Individual_Item/Error';
+import SellForm from './Components/SellItems/SellForm';
 function App() {
   return (
     <div className="App">
@@ -19,11 +20,11 @@ function App() {
       <Route path='individual' element={<Individual/>}>
         <Route path=':userId' element={<Individual/>}/>
         </Route>
-      
-      
       <Route path='categories' element={<CategoryPage/>}>
         <Route path=':userId' element={<CategoryPage/>}/>
-        </Route>
+      </Route>
+      <Route path='*' element={<Error/>}/>
+      <Route path='sellform' element={<SellForm/>}/>
      </Routes>
       <SellBar/>
       

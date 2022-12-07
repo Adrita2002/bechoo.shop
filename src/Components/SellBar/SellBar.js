@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link, useParams,useNavigate} from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -43,12 +44,13 @@ const StyledFab = styled(Fab)({
 });
 
 export default function BottomAppBar() {
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
     <React.Fragment>
       
      
-    <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
+    <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }} onClick={()=>navigate(`sellform`)}>
         <Toolbar>
           
           <StyledFab color="secondary" aria-label="add">

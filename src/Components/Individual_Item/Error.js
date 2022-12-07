@@ -1,8 +1,8 @@
 import React from 'react'
-
+import './Error.css'
 const Error = () => {
   return (
-    <div>Page Not Found!</div>
+    <div className='Error'>Page Not Found!</div>
   )
 }
 
