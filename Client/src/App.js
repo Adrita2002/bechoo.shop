@@ -11,6 +11,9 @@ import CategoryPage from './Components/CategoryPage/CategoryPage';
 import Individual from './Components/Individual_Item/Individual';
 import Error from './Components/Individual_Item/Error';
 import SellForm from './Components/SellItems/SellForm';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
+
 function App() {
   return (
     <div className="App">
@@ -25,6 +28,8 @@ function App() {
       </Route>
       <Route path='*' element={<Error/>}/>
       <Route path='sellform' element={<SellForm/>}/>
+      <Route path='login' element={<Login/>}/>
+      <Route path='register' element={<Register/>}/>
      </Routes>
       <SellBar/>
       

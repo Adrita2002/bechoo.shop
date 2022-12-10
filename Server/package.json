@@ -1,0 +1,32 @@
+{
+  "name": "bechoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "antd": "^4.24.1",
+    "auto-bind": "^5.0.1",
+    "bootstrap": "^5.2.2",
+    "dotenv": "^16.0.3",
+    "react-bootstrap": "^2.6.0",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gauravdas014/bechoo.shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gauravdas014/bechoo.shop/issues"
+  },
+  "homepage": "https://github.com/gauravdas014/bechoo.shop#readme"
+}

@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import './SellForm.css'
 import TextField from '@mui/material/TextField'
-import  { Card,CardContent, Grid } from '@mui/material'
+import  { Card,CardContent, Grid, Button } from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
 import dataItem from '../Data.json'
 
@@ -64,7 +64,12 @@ const SellForm = () => {
                 <br/>
               <input id='file-input' type="file" multiple accept="image/*" required fullWidth/>
               </Grid>
+              <Grid xs={12} sm={6} item>
+              <Button className="submit-btn" variant="contained" component="label">Submit</Button>
+              </Grid>
+              
             </Grid>
+            
           </CardContent>
         </Card>
     </div>
