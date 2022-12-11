@@ -13,9 +13,11 @@ import Error from './Components/Individual_Item/Error';
 import SellForm from './Components/SellItems/SellForm';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
+import { AuthProvider } from './utils/auth';
 
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
       <Navbar/>
      <Routes>
@@ -34,6 +36,7 @@ function App() {
       <SellBar/>
       
     </div>
+    </AuthProvider>
   );
 }
 

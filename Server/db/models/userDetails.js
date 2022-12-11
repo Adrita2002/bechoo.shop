@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     email:{
         type:String,
         required:true,
-        // unique:[true,"Email ID already present"],
+        unique:[true,"Email ID already present"],
         validate(value){
             if(!validator.isEmail(value)){
                 throw new Error("Invalid Email")
