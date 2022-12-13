@@ -1,6 +1,7 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom'
 import './App.css';
+import { useLocation } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar';
 import SearchBox from './Components/SearchBox/SearchBox';
 import SellBar from './Components/SellBar/SellBar';
@@ -13,16 +14,22 @@ import Error from './Components/Individual_Item/Error';
 import SellForm from './Components/SellItems/SellForm';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
-import { AuthProvider } from './utils/auth';
+import Profile from './Components/ProfilePage/Profile';
+import PrivateRoutes from './utils/auth'
 
 function App() {
+  const {pathname} = useLocation();
   return (
-    <AuthProvider>
+    
     <div className="App">
-      <Navbar/>
+      {(pathname=='/login' || pathname=='/register')?"":<Navbar/>}
      <Routes>
-      <Route path='/' element={<ItemZone/>}/>
-      <Route path='individual' element={<Individual/>}>
+   
+      <Route path='login' element={<Login/>}/>
+      <Route path='register' element={<Register/>}/>
+     
+       <Route element={<PrivateRoutes/>}>
+       <Route path='individual' element={<Individual/>}>
         <Route path=':userId' element={<Individual/>}/>
         </Route>
       <Route path='categories' element={<CategoryPage/>}>
@@ -30,13 +37,15 @@ function App() {
       </Route>
       <Route path='*' element={<Error/>}/>
       <Route path='sellform' element={<SellForm/>}/>
-      <Route path='login' element={<Login/>}/>
-      <Route path='register' element={<Register/>}/>
+      <Route path='/' element={<ItemZone/>}/>
+      <Route path='profile' element={<Profile/>}/>
+      </Route>
+      
      </Routes>
-      <SellBar/>
+     {(pathname=='/login' || pathname=='/register')?"":<SellBar/>}
       
     </div>
-    </AuthProvider>
+    
   );
 }
 

@@ -6,28 +6,11 @@ import './ItemZone.css'
 import dataItem from '../Data.json'
 import axios from 'axios';
 const ItemZone = () => {
-  const [userDetails, setUserDetails] = useState({});
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-		if (token) {
-			(async () => {
-			axios.get('/user/info',{
-        headers:{
-          Authorization: `Bearer ${token}`
-        }
-      }).then(res=>{
-        if(res.data.data){
-          console.log(res.data.data);
-          setUserDetails(res.data.data);
-        }
-      })
-			})();
-		}
-	}, []);
+
   return (
     <div className='itemZone'>
       <h1 className='item-zone'>Items on Sale <img src = {fire}/></h1>
-      <p>{userDetails?.name}</p>
+      
          <Grid container spacing={4}>
         {
             dataItem.map(data=>{

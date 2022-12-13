@@ -1,10 +1,12 @@
 import React,{useState} from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 import TextField from '@mui/material/TextField'
 import  { Card,CardContent, Grid, Button } from '@mui/material'
 import './Register.css'
 const Register = () => {
   const [user, setUser] = useState({name:'',email:'',phone:'',password:''})
+  const navigate = useNavigate();
   function handleSubmit(e){
     e.preventDefault()
     axios.post('/registeruser',{
@@ -12,7 +14,10 @@ const Register = () => {
       email:user.email,
       phone:user.phone,
       password:user.password
-    }).then(res=>{ console.log('Data sent', res)}).catch(err=>console.log(err))
+    }).then(res=>{ 
+      console.log('Data sent', res);
+      navigate('/login');
+    }).catch(err=>console.log(err))
   }
 
 

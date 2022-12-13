@@ -1,4 +1,5 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react';
+import axios from 'axios';
 import SearchBox from '../SearchBox/SearchBox'
 import Fab from '@mui/material/Fab';
 import ItemData from "../Data.json";
@@ -11,6 +12,24 @@ import Categories from '../Categories/Categories';
 import Badge from '@mui/material/Badge';
 import './Navbar.css'
 const Navbar = () => {
+  const [userDetails, setUserDetails] = useState({});
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+		if (token) {
+			(async () => {
+			axios.get('/user/info',{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res=>{
+        if(res.data.data){
+          console.log(res.data.data);
+          setUserDetails(res.data.data);
+        }
+      })
+			})();
+		}
+	}, []);
   return (
     <div className='nav-wrapper'>
     <div className="navbar">
@@ -21,14 +40,13 @@ const Navbar = () => {
         <Badge badgeContent={4} color="secondary">
   <ChatBubbleOutlineIcon color="white" />
 </Badge>
-<Badge badgeContent={4} color="secondary">
-  <NotificationsIcon color="white" />
-</Badge>
+
         <Badge badgeContent={4} color="secondary">
   <ShoppingCartIcon color="white" />
 </Badge>
-        <div className='account'><AccountCircleIcon/>
-        <KeyboardArrowDownIcon/></div>
+        <div className='account'>
+          {userDetails.name}
+        </div>
            
        </div>
    

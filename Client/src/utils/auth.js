@@ -1,22 +1,12 @@
-import { useState, useContext, createContext } from "react";
+import React from 'react'
+import {Outlet, Navigate} from 'react-router-dom'
 
-const AuthContext = createContext(null)
-
-export const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null)
-
-    const login = (user)=>{
-        setUser(user)
-    }
-    const logout = ()=>{
-        setUser(null)
-    }
-
-    return (
-        <AuthContext.Provider value={{user, login, logout}}>{children}</AuthContext.Provider>
+const PrivateRoutes = () =>{
+    const token = localStorage.getItem('token')
+    return(
+        token?<Outlet/> : <Navigate to='/login'/>
     )
 }
 
-export const useAuth = () =>{
-    return useContext(AuthContext)
-}
+
+export default PrivateRoutes

@@ -1,10 +1,15 @@
 .register{
     display:flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: safe; */
     align-items: center;
+    background-color: #251B37;
+    /* background-color: ; */
+    height:100vh
    
-    margin-bottom:100px;
+}
+.register h1{
+    color:#ffffff
 }
 .register-card{
     width:55%;
