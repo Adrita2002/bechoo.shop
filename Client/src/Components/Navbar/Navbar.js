@@ -34,13 +34,9 @@ const Navbar = () => {
 	}, []);
   
   function logout(){
-    axios.get('/logout').then(()=>{
+    
       localStorage.clear();
       navigate('/login');
-    }).catch(err=>{
-      console.log(err);
-    }
-    )
   }
   return (
     <div className='nav-wrapper'>
