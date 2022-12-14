@@ -91,15 +91,6 @@ app.get('/user/info',protect,async (req,res)=>{
     }
 })
 
-//Logout
-app.get('/logout', protect,function(req,res){
-    req.user.deleteToken(req.token,(err,user)=>{
-        if(err) return res.status(400).send(err);
-        res.sendStatus(200);
-    });
-
-}); 
-
 
 app.listen(port, ()=>{
     console.log(`Server running on port ${port}`)

@@ -32,9 +32,15 @@ const Navbar = () => {
 			})();
 		}
 	}, []);
+  
   function logout(){
-    localStorage.clear();
-    navigate('/login');
+    axios.get('/logout').then(()=>{
+      localStorage.clear();
+      navigate('/login');
+    }).catch(err=>{
+      console.log(err);
+    }
+    )
   }
   return (
     <div className='nav-wrapper'>
