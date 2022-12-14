@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 import SearchBox from '../SearchBox/SearchBox'
 import Fab from '@mui/material/Fab';
@@ -13,6 +14,7 @@ import Badge from '@mui/material/Badge';
 import './Navbar.css'
 const Navbar = () => {
   const [userDetails, setUserDetails] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('token')
 		if (token) {
@@ -30,6 +32,10 @@ const Navbar = () => {
 			})();
 		}
 	}, []);
+  function logout(){
+    localStorage.clear();
+    navigate('/login');
+  }
   return (
     <div className='nav-wrapper'>
     <div className="navbar">
@@ -46,6 +52,7 @@ const Navbar = () => {
 </Badge>
         <div className='account'>
           {userDetails.name}
+          <button onClick={logout}>Logout</button>
         </div>
            
        </div>

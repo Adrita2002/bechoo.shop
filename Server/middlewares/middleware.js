@@ -1,5 +1,5 @@
-const User = require('./db/models/userDetails')
-const {JWT_SECRET} = require('./utils');
+const User = require('../db/models/userDetails')
+const {JWT_SECRET} = require('../utils');
 const jwt = require('jsonwebtoken')
 const protect = async (req, res, next) => {
     try {

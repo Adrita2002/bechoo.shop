@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 require('./db/conn')
-const protect = require('./middleware')
+const protect = require('./middlewares/middleware')
 const User = require('./db/models/userDetails');
 const { JWT_SECRET } = require('./utils')
 const { createSearchParams } = require('react-router-dom');
@@ -91,6 +91,14 @@ app.get('/user/info',protect,async (req,res)=>{
     }
 })
 
+//Logout
+app.get('/logout', protect,function(req,res){
+    req.user.deleteToken(req.token,(err,user)=>{
+        if(err) return res.status(400).send(err);
+        res.sendStatus(200);
+    });
+
+}); 
 
 
 app.listen(port, ()=>{
