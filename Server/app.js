@@ -4,11 +4,13 @@ const jwt = require('jsonwebtoken')
 const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+
 require('./db/conn')
 const protect = require('./middlewares/middleware')
 const User = require('./db/models/userDetails');
 const { JWT_SECRET } = require('./utils')
 const { createSearchParams } = require('react-router-dom');
+const generatePresignedUrl = require('./s3')
 
 app.use(express.json())
 const port = process.env.PORT || 8000
@@ -91,7 +93,20 @@ app.get('/user/info',protect,async (req,res)=>{
     }
 })
 
+//-----Product Details-----
 
+//Image upload
+  app.post('/s3Url',async(req, res)=>{
+    const url = await generatePresignedUrl(req, res);
+    console.log(url)
+    return res.json({url});
+  })
+
+
+//Product db
+app.post('/productdetails',(req, res)=>{
+    console.log(req.body);
+})
 app.listen(port, ()=>{
     console.log(`Server running on port ${port}`)
 });

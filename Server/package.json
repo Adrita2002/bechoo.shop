@@ -6,14 +6,19 @@
   "dependencies": {
     "antd": "^4.24.1",
     "auto-bind": "^5.0.1",
+    "aws-sdk": "^2.1276.0",
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
     "react-bootstrap": "^2.6.0",
     "react-material-ui-carousel": "^3.4.2",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.4.3"
+    "react-router-dom": "^6.4.3",
+    "uuid": "^9.0.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {},
   "scripts": {

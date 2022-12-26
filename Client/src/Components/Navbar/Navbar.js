@@ -4,6 +4,9 @@ import axios from 'axios';
 import SearchBox from '../SearchBox/SearchBox'
 import Fab from '@mui/material/Fab';
 import ItemData from "../Data.json";
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -32,12 +35,27 @@ const Navbar = () => {
 			})();
 		}
 	}, []);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+   };
+   const handleClose = () => {
+     setAnchorEl(null);
+   };
+
   
   function logout(){
     
       localStorage.clear();
       navigate('/login');
   }
+
+  function handleMenu(){
+
+  }
+
   return (
     <div className='nav-wrapper'>
     <div className="navbar">
@@ -53,8 +71,30 @@ const Navbar = () => {
   <ShoppingCartIcon color="white" />
 </Badge>
         <div className='account'>
-          {userDetails.name}
-          <button onClick={logout}>Logout</button>
+         
+        <Button
+        id="basic-button" color="success"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        {userDetails.name}
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+       
+        <MenuItem onClick={()=>{navigate('/profile')}}>My account</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
+      </Menu>
+
         </div>
            
        </div>
@@ -65,4 +105,19 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+ export default Navbar
+// import React, {useState} from 'react';
+// import Button from '@mui/material/Button';
+// import Menu from '@mui/material/Menu';
+// import MenuItem from '@mui/material/MenuItem';
+
+// function Navbar() {
+//   
+//   return (
+//     <div>
+//       
+//     </div>
+//   );
+// }
+
+// export default Navbar
