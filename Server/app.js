@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 require('./db/conn')
 const protect = require('./middlewares/middleware')
 const User = require('./db/models/userDetails');
+const Product = require('./db/models/productDetails')
 const { JWT_SECRET } = require('./utils')
 const { createSearchParams } = require('react-router-dom');
 const generatePresignedUrl = require('./s3')
@@ -30,7 +31,7 @@ app.post('/registeruser',async(req, res)=>{
         phone:req.body.phone,
         password:encryptedPassword
     })
-    console.log(user)
+    // console.log(user)
     // await user.save().then(()=>{
     //     res.status(201).send(user)
     // }).catch((err)=>res.status(400).send(err))
@@ -105,7 +106,30 @@ app.get('/user/info',protect,async (req,res)=>{
 
 //Product db
 app.post('/productdetails',(req, res)=>{
-    console.log(req.body);
+    // console.log(req.body);
+    try {
+        // console.log(req.body)
+        // const oldUser = await User.find({email:req.body.email});
+        // if(oldUser) return res.send('User exists');
+    const product = new Product({
+        name:req.body.name,
+       price:req.body.price,
+        desc:req.body.desc,
+        brand:req.body.brand,
+        category:req.body.category,
+        other:req.body.other,
+        images:req.body.images
+    })
+    // console.log(user)
+    // await user.save().then(()=>{
+    //     res.status(201).send(user)
+    // }).catch((err)=>res.status(400).send(err))
+    
+    product.save()
+    res.json(product)
+    }catch(err){
+        console.log(err)
+    }
 })
 app.listen(port, ()=>{
     console.log(`Server running on port ${port}`)
