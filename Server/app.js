@@ -131,6 +131,19 @@ app.post('/productdetails',(req, res)=>{
         console.log(err)
     }
 })
+
+
+//---Fetch Data----
+app.get('/users/get',(req, res)=>{
+    User.find((err, data)=>{
+        if(err){
+            res.status(500).json(err.message);
+        }
+        else{
+            res.status(201).json(data);
+        }
+    })
+})
 app.listen(port, ()=>{
     console.log(`Server running on port ${port}`)
 });

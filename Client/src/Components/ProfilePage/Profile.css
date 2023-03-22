@@ -1,0 +1,21 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.linkcards-area {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.link-cards {
+  border: 1px solid rgb(153, 153, 153);
+  border-radius: 6px;
+  padding: 30px 30px;
+  /* margin: 10px 40px; */
+}

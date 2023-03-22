@@ -19,7 +19,6 @@ const SellForm = () => {
   });
 
   const [fileList, setFileList] = useState(null);
-  const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
   const uniqueCategory = [];
   dataItem.map((datum) => {
     if (uniqueCategory.indexOf(datum.category) === -1) {
@@ -38,24 +37,14 @@ const SellForm = () => {
     setFileList(e.target.files);
   };
 
-  // function imageUpload(event){
-  //   console.log(event.target.files);
-  //   // setProductDetails({...productDetails,image:[...event.target.files]})
-  //   setImages(event.target.files[0]);
-  //   const formData = new FormData();
-  //   formData.append("images", images);
-  //   axios.post('/productImages',formData).then(res=>{
-  //     console.log(res)
-  //   }).catch(err=>console.log(err));
-  //   if(event.target.files?.length < 1)alert("You must at a minimum of 1 image")
-  //   if(event.target.files.length > 5)alert("You can at 5 images at max")
-  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!fileList) {
       return;
     }
+
+  const finalImageUrls = []
  
    await Promise.all(
     Array.from(fileList).map(async (file, i) => {
@@ -77,32 +66,26 @@ const SellForm = () => {
 
       if (response.status === 200) {
         const finalUrl = url.split("?")[0];
-        // uploadedImageUrls.push(finalUrl);
-        console.log(finalUrl,"finalUrl");
-        setUploadedImageUrls([...uploadedImageUrls,finalUrl])
+        finalImageUrls.push(finalUrl)
       }
-
-      // API call to save selling product
-      
-
     })
    )
-    console.log(uploadedImageUrls, "url")
-  // if(uploadedImageUrls.length>=1){
-  //   const sellingProduct = await axios.post("/productdetails", {
-  //     name: productDetails.name,
-  //     price: productDetails.price,
-  //     desc: productDetails.desc,
-  //     brand: productDetails.brand,
-  //     category: productDetails.category,
-  //     other: productDetails.other,
-  //     images: uploadedImageUrls
-  //   });
-  //   if(sellingProduct.status === 201 || sellingProduct.status === 200){
-  //     // success page, redirect to next page
-  //     navigate('/');
-  //   }
-  // }
+
+  if(finalImageUrls.length>=1){
+    const sellingProduct = await axios.post("/productdetails", {
+      name: productDetails.name,
+      price: productDetails.price,
+      desc: productDetails.desc,
+      brand: productDetails.brand,
+      category: productDetails.category,
+      other: productDetails.other,
+      images: finalImageUrls
+    });
+    if(sellingProduct.status === 201 || sellingProduct.status === 200){
+      // success page, redirect to next page
+      navigate('/');
+    }
+  }
 
     
   };

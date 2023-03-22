@@ -1,10 +1,10 @@
-require('dotenv').config()
-const mongoose = require('mongoose')
+require("dotenv").config();
+const mongoose = require("mongoose");
 
-main().catch(err=>console.log(err));
+main().catch((err) => console.log(err));
 
-async function main(){
-    await mongoose.connect(`mongodb+srv://Ana123:xPNApZxlmCFpYJCw@bechoodetails.f0dgp6e.mongodb.net/bechooDetails?retryWrites=true&w=majority`,()=>{
-        console.log("Connected to Database")
-    } )
+async function main() {
+  await mongoose.connect(`mongodb://localhost:27017/bechoodb`, () => {
+    console.log("Connected to Database");
+  });
 }
