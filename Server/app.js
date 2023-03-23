@@ -3,6 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken')
 const app = express();
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', false)
 const bcrypt = require('bcrypt');
 
 require('./db/conn')
@@ -10,7 +11,6 @@ const protect = require('./middlewares/middleware')
 const User = require('./db/models/userDetails');
 const Product = require('./db/models/productDetails')
 const { JWT_SECRET } = require('./utils')
-const { createSearchParams } = require('react-router-dom');
 const generatePresignedUrl = require('./s3')
 
 app.use(express.json())

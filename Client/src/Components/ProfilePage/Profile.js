@@ -33,6 +33,7 @@ const Profile = () => {
   return (
     <div className="profile">
       <h1>Hello, {userDetails.name}!</h1>
+      <img src={orderpic} />
       <div className="linkcards-area">
         <LinkCards title="Your Orders" pic={orderpic} />
         <LinkCards title="Your Details" pic={detailpic} />
