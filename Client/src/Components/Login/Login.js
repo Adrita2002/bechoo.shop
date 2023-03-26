@@ -23,6 +23,7 @@ const Login = () => {
       console.log(res.data)
     if(res.data.status=='ok'){ 
     localStorage.setItem('token',res.data.data)
+    localStorage.setItem('userId',res.data.userId)
     navigate('/');
     
   }else{

@@ -64,6 +64,7 @@ app.post("/loginuser", async (req, res) => {
         return res.json({
           status: "ok",
           data: token,
+          userId: user._id
         });
       } else {
         return res.json({ error: "error" });
