@@ -1,0 +1,11 @@
+.yourdetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.details {
+  border: 1px solid grey;
+  padding: 30px;
+}

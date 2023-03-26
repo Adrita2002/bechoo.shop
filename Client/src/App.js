@@ -16,6 +16,10 @@ import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
 import Profile from "./Components/ProfilePage/Profile";
 import PrivateRoutes from "./utils/auth";
+import YourOrders from "./Components/AccountDetails/YourOrders";
+import YourDetails from "./Components/AccountDetails/YourDetails";
+import ItemsOnSale from "./Components/AccountDetails/ItemsOnSale";
+import LikedItems from "./Components/AccountDetails/LikedItems";
 
 function App() {
   const { pathname } = useLocation();
@@ -37,6 +41,12 @@ function App() {
           <Route path="sellform" element={<SellForm />} />
           <Route path="/" element={<ItemZone />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="yourorders" element={<YourOrders />} />
+          <Route path="yourdetails" element={<YourDetails />} />
+          <Route path="itemsonsale" element={<ItemsOnSale />}>
+            <Route path=":userId" element={<ItemsOnSale />} />
+          </Route>
+          <Route path="likeditems" element={<LikedItems />} />
         </Route>
       </Routes>
       {pathname == "/login" || pathname == "/register" ? "" : <SellBar />}

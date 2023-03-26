@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./SellForm.css";
@@ -8,8 +8,29 @@ import MenuItem from "@mui/material/MenuItem";
 import dataItem from "../Data.json";
 
 const SellForm = () => {
+  const [userId, setUserId] = useState({});
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      (async () => {
+        axios
+          .get("/user/info", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            if (res.data.data) {
+              // console.log(res.data.data);
+              setUserId(res.data.data._id);
+            }
+          });
+      })();
+    }
+  }, []);
   const navigate = useNavigate();
   const [productDetails, setProductDetails] = useState({
+    userId: "",
     name: "",
     price: "",
     desc: "",
@@ -37,57 +58,55 @@ const SellForm = () => {
     setFileList(e.target.files);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!fileList) {
       return;
     }
 
-  const finalImageUrls = []
- 
-   await Promise.all(
-    Array.from(fileList).map(async (file, i) => {
-      const resp = await axios.post("/s3Url", {
-        fileExtension: file.name.split(".")[1],
-        contentType: file.type,
+    const finalImageUrls = [];
+
+    await Promise.all(
+      Array.from(fileList).map(async (file, i) => {
+        const resp = await axios.post("/s3Url", {
+          fileExtension: file.name.split(".")[1],
+          contentType: file.type,
+        });
+        const url = resp.data.url;
+        const config = {
+          method: "put",
+          url: url,
+          headers: {
+            "Content-Type": file.type,
+          },
+          data: file,
+        };
+
+        const response = await axios(config);
+
+        if (response.status === 200) {
+          const finalUrl = url.split("?")[0];
+          finalImageUrls.push(finalUrl);
+        }
+      })
+    );
+
+    if (finalImageUrls.length >= 1) {
+      const sellingProduct = await axios.post("/productdetails", {
+        userId: productDetails.userId,
+        name: productDetails.name,
+        price: productDetails.price,
+        desc: productDetails.desc,
+        brand: productDetails.brand,
+        category: productDetails.category,
+        other: productDetails.other,
+        images: finalImageUrls,
       });
-      const url = resp.data.url;
-      const config = {
-        method: "put",
-        url: url,
-        headers: {
-          "Content-Type": file.type,
-        },
-        data: file,
-      };
-
-      const response = await axios(config);
-
-      if (response.status === 200) {
-        const finalUrl = url.split("?")[0];
-        finalImageUrls.push(finalUrl)
+      if (sellingProduct.status === 201 || sellingProduct.status === 200) {
+        // success page, redirect to next page
+        navigate("/");
       }
-    })
-   )
-
-  if(finalImageUrls.length>=1){
-    const sellingProduct = await axios.post("/productdetails", {
-      name: productDetails.name,
-      price: productDetails.price,
-      desc: productDetails.desc,
-      brand: productDetails.brand,
-      category: productDetails.category,
-      other: productDetails.other,
-      images: finalImageUrls
-    });
-    if(sellingProduct.status === 201 || sellingProduct.status === 200){
-      // success page, redirect to next page
-      navigate('/');
     }
-  }
-
-    
   };
 
   return (

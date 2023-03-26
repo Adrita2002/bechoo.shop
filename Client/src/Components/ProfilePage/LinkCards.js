@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 const LinkCards = (props) => {
+  const navigate = useNavigate();
   return (
-    <div className="link-cards">
+    <div className="link-cards" onClick={() => navigate(`${props?.link}`)}>
       <div className="item-pic">
         <img src={props?.pic} />
       </div>
-      {props?.title}
+      <h3>{props?.title}</h3>
     </div>
   );
 };

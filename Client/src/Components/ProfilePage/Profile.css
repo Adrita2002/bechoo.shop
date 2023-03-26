@@ -14,8 +14,22 @@
 }
 
 .link-cards {
-  border: 1px solid rgb(153, 153, 153);
-  border-radius: 6px;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 8px;
   padding: 30px 30px;
-  /* margin: 10px 40px; */
+  display: flex;
+  align-items: center;
+  background-color: rgb(224, 224, 224);
+}
+
+@media screen and (max-width: 927px) {
+  .linkcards-area {
+    flex-direction: column;
+  }
+  .link-cards {
+    margin: 20px 0;
+  }
+}
+.item-pic {
+  margin: 0 10px;
 }

@@ -7,7 +7,7 @@ import orderpic from "./orderpics/orderbig.png";
 import sellpic from "./sellpic/sellbig.png";
 import likedpic from "./likedpics/likedpicsbig.png";
 import detailpic from "./detailspic/detailsbig.png";
-
+import Grid from "antd/lib/card/Grid";
 const Profile = () => {
   const [userDetails, setUserDetails] = useState({});
   const navigate = useNavigate();
@@ -33,12 +33,16 @@ const Profile = () => {
   return (
     <div className="profile">
       <h1>Hello, {userDetails.name}!</h1>
-      <img src={orderpic} />
+
       <div className="linkcards-area">
-        <LinkCards title="Your Orders" pic={orderpic} />
-        <LinkCards title="Your Details" pic={detailpic} />
-        <LinkCards title="Items on Sale" pic={sellpic} />
-        <LinkCards title="Liked Items" pic={likedpic} />
+        <LinkCards title="Your Orders" pic={orderpic} link="/yourorders" />
+        <LinkCards title="Your Details" pic={detailpic} link="/yourdetails" />
+        <LinkCards
+          title="Items on Sale"
+          pic={sellpic}
+          link={"/itemsonsale/:" + userDetails._id}
+        />
+        <LinkCards title="Liked Items" pic={likedpic} link="/likeditems" />
       </div>
     </div>
   );
