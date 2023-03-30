@@ -64,7 +64,7 @@ app.post("/loginuser", async (req, res) => {
         return res.json({
           status: "ok",
           data: token,
-          userId: user._id
+          userId: user._id,
         });
       } else {
         return res.json({ error: "error" });
@@ -155,7 +155,7 @@ app.get("/user/onsale/all/:userId", async (req, res) => {
     console.log(req.params, "...params");
     const userId = req.params.userId;
     const userProduct = await Product.find({ userId: userId });
-    console.log(userProduct);
+    console.log(userProduct, "product");
     res.status(200).json(userProduct);
   } catch (err) {
     console.log(err, "error");

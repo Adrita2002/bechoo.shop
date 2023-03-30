@@ -8,26 +8,26 @@ import MenuItem from "@mui/material/MenuItem";
 import dataItem from "../Data.json";
 
 const SellForm = () => {
-  const [userId, setUserId] = useState({});
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      (async () => {
-        axios
-          .get("/user/info", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            if (res.data.data) {
-              // console.log(res.data.data);
-              setUserId(res.data.data._id);
-            }
-          });
-      })();
-    }
-  }, []);
+  // const [userId, setUserId] = useState("");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     (async () => {
+  //       axios
+  //         .get("/user/info", {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         })
+  //         .then((res) => {
+  //           if (res.data.data) {
+  //             // console.log(res.data.data);
+  //             setUserId(res.data.data._id);
+  //           }
+  //         });
+  //     })();
+  //   }
+  // }, []);
   const navigate = useNavigate();
   const [productDetails, setProductDetails] = useState({
     userId: "",
@@ -92,8 +92,10 @@ const SellForm = () => {
     );
 
     if (finalImageUrls.length >= 1) {
+      console.log(productDetails, "product info");
+      const userId = localStorage.getItem("userId");
       const sellingProduct = await axios.post("/productdetails", {
-        userId: productDetails.userId,
+        userId: userId,
         name: productDetails.name,
         price: productDetails.price,
         desc: productDetails.desc,
@@ -105,6 +107,7 @@ const SellForm = () => {
       if (sellingProduct.status === 201 || sellingProduct.status === 200) {
         // success page, redirect to next page
         navigate("/");
+        console.log(sellingProduct, "Selling Product");
       }
     }
   };
