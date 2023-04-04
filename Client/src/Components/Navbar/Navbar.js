@@ -57,7 +57,14 @@ const Navbar = () => {
   return (
     <div className="nav-wrapper">
       <div className="navbar">
-        <div className="logo">Bechoo</div>
+        <div
+          className="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Bechoo
+        </div>
         <SearchBox placeholder="Search for items..." data={ItemData} />
 
         <div className="btn-wrapper">
@@ -106,18 +113,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-// import React, {useState} from 'react';
-// import Button from '@mui/material/Button';
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
-
-// function Navbar() {
-//
-//   return (
-//     <div>
-//
-//     </div>
-//   );
-// }
-
-// export default Navbar

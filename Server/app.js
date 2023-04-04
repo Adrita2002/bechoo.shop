@@ -163,8 +163,43 @@ app.get("/user/onsale/all/:userId", async (req, res) => {
   }
 });
 
+//-----Fetch all Product Details-----
+app.get("/products/get", (req, res) => {
+  Product.find((err, data) => {
+    if (err) {
+      res.status(500).json(err.message);
+    } else {
+      res.status(201).json(data);
+    }
+  });
+});
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+});
+
+//----Fetch all the unique categories
+app.get("/products/get/category", async (req, res) => {
+  try {
+    const productCategory = await Product.distinct("category");
+    res.status(200).json(productCategory);
+    console.log(productCategory, "....Category");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+//----Fetch all products of a particular category----
+app.get("/category/products/:categoryname", async (req, res) => {
+  try {
+    console.log(req.params, "...params");
+    const category = req.params.categoryname;
+    const productCategory = await Product.find({ category: category });
+    console.log(productCategory, "product category");
+    res.status(200).json(productCategory);
+  } catch (err) {
+    console.log(err, "error");
+    res.status(500).json(err.message);
+  }
 });
 
 mongoose.set("strictQuery", false);

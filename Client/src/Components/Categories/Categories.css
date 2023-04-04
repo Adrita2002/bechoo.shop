@@ -1,14 +1,10 @@
-.categories{
-    margin:0;
-    background-color: #372948;
-    color:aliceblue
+.categories {
+  background-color: #18122b;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
-ul{
-    list-style: none;
-    display: flex;
-    justify-content: space-evenly;
+.category {
+  background-color: #ffffff;
+  cursor: pointer;
 }
-.category-list{
-    cursor: pointer;
-}
-  
