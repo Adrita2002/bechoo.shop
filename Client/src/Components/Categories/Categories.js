@@ -13,18 +13,18 @@ const Categories = ({ data }) => {
       axios
         .get("http://localhost:8000/products/get/category")
         .then((res) => {
-          console.log(res.data);
-          let cnt = 0;
+          console.log(res.data.array);
+          // let cnt = 0;
           let cate = [];
           res.data.map((data) => {
             let obj = {
               label: data,
-              value: cnt,
+              value: data,
             };
             cate.push(obj);
-            cnt = cnt + 1;
+            // cnt = cnt + 1;
           });
-          setCategory([...cate]);
+          setCategory(cate);
           console.log(category, "category");
         })
         .catch((err) => {
@@ -43,6 +43,7 @@ const Categories = ({ data }) => {
   return (
     <div className="categories">
       <Autocomplete
+        className="category"
         options={category}
         getOptionLabel={(option) => option.label}
         value={selectedOption}
