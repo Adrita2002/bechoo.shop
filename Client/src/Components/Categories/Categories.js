@@ -7,9 +7,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 const Categories = ({ data }) => {
   const [category, setCategory] = useState([]);
-  const [search, setSearch] = useState();
-  const [selectedOption, setSelectedOption] = useState('');
-
+  const navigate = useNavigate();
   const isOptionEqualToValue = (option, value) => {
     return option.value === value.value;
   };
@@ -19,14 +17,14 @@ const Categories = ({ data }) => {
       axios
         .get("http://localhost:8000/products/get/category")
         .then((res) => {
-          console.log(res.data, 'res.data');
+          console.log(res.data, "res.data");
           setCategory(res.data);
           const categories = [];
-          res.data.forEach(category => {
+          res.data.forEach((category) => {
             let obj = {
-              label : category,
-              value: category
-            }
+              label: category,
+              value: category,
+            };
             categories.push(obj);
           });
           setCategory(categories);
@@ -38,16 +36,15 @@ const Categories = ({ data }) => {
   }, []);
 
   const handleOptionChange = (event, newValue) => {
-    if(newValue){
-      setSelectedOption(newValue.value);
-    }else {
-      setSelectedOption();
-    }
+    // if (newValue) {
+    //   setSelectedOption(newValue.value, () => {
+    //     navigate(`/categories/${newValue.value}`);
+    //   });
+    // } else {
+    //   setSelectedOption();
+    // }
+    navigate(`/categories/${newValue.value}`);
   };
-
-  const navigate = useNavigate();
-
-  console.log(selectedOption, 'selected option');
 
   return (
     <div className="categories">
@@ -66,21 +63,3 @@ const Categories = ({ data }) => {
 };
 
 export default Categories;
-/*
-import React, { useState } from 'react';
-import { Autocomplete } from '@material-ui/lab';
-import { TextField } from '@material-ui/core';
-
-const options = [
-  { label: 'Option 1', value: 1 },
-  { label: 'Option 2', value: 2 },
-  { label: 'Option 3', value: 3 },
-];
-
-function MyAutocomplete() {
-
-
-  return (
-   
-  );
-} */
