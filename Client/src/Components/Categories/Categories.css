@@ -7,4 +7,5 @@
 .category {
   background-color: #ffffff;
   cursor: pointer;
+  width: 500px !important;
 }

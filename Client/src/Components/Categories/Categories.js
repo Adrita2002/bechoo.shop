@@ -8,46 +8,55 @@ import axios from "axios";
 const Categories = ({ data }) => {
   const [category, setCategory] = useState([]);
   const [search, setSearch] = useState();
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const isOptionEqualToValue = (option, value) => {
+    return option.value === value.value;
+  };
+
   useEffect(() => {
     (async () => {
       axios
         .get("http://localhost:8000/products/get/category")
         .then((res) => {
-          console.log(res.data.array);
-          // let cnt = 0;
-          let cate = [];
-          res.data.map((data) => {
+          console.log(res.data, 'res.data');
+          setCategory(res.data);
+          const categories = [];
+          res.data.forEach(category => {
             let obj = {
-              label: data,
-              value: data,
-            };
-            cate.push(obj);
-            // cnt = cnt + 1;
+              label : category,
+              value: category
+            }
+            categories.push(obj);
           });
-          setCategory(cate);
-          console.log(category, "category");
+          setCategory(categories);
         })
         .catch((err) => {
           console.log(err);
         });
     })();
   }, []);
-  const [selectedOption, setSelectedOption] = useState();
 
   const handleOptionChange = (event, newValue) => {
-    setSelectedOption(newValue);
-    console.log(selectedOption, "...option");
+    if(newValue){
+      setSelectedOption(newValue.value);
+    }else {
+      setSelectedOption();
+    }
   };
 
   const navigate = useNavigate();
+
+  console.log(selectedOption, 'selected option');
+
   return (
     <div className="categories">
       <Autocomplete
         className="category"
         options={category}
         getOptionLabel={(option) => option.label}
-        value={selectedOption}
         onChange={handleOptionChange}
+        isOptionEqualToValue={isOptionEqualToValue}
         renderInput={(params) => (
           <TextField {...params} label="Select an option" variant="outlined" />
         )}
