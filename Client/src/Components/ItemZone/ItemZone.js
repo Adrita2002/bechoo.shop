@@ -3,7 +3,6 @@ import fire from "./fire.png";
 import ItemCards from "../ItemCards/ItemCards";
 import Grid from "@mui/material/Grid";
 import "./ItemZone.css";
-import dataItem from "../Data.json";
 import axios from "axios";
 const ItemZone = () => {
   const [product, setProduct] = useState([]);

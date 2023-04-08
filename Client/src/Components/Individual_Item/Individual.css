@@ -1,13 +1,89 @@
-.carousel{
-  height:50vh;
-  width:100vw
+.random-filler {
+  background-color: rgb(33, 193, 247);
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.css-1ps6pg7-MuiPaper-root {
+  background-color: rgba(0, 0, 0, 0.87);
+}
+.grid {
+  padding: 20px 40px;
+  margin-bottom: 80px;
+}
+.grid-item {
+  background-color: white;
+  padding: 10px 40px;
+  /* border: 1px solid; */
+  border-radius: 5px;
+}
+.carousel {
+  height: 300px;
+}
+.paper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.i-card {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  width: 400px;
+  height: 300px;
+  border: 1px solid rgb(65, 64, 64);
+  justify-self: center;
+  align-self: center;
 }
 
-.items{
-  height:100%;
-  width:100%
+.card img {
+  height: 100%;
+  width: 100%;
 }
-.items img{
- height:100%;
- width:100%
+
+.grid2 {
+  padding: 0 40px;
+}
+.para {
+  background-color: white;
+  padding: 0 20px;
+  border-radius: 3px;
+  padding-bottom: 10px;
+}
+
+.head1 {
+  font-size: 2.5rem;
+}
+
+.p1 {
+  font-size: 1.4rem;
+  /* border: 1px solid rgb(0, 0, 54); */
+}
+
+#g2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button {
+  width: 90%;
+}
+.button button {
+  background-color: #18122b;
+  color: azure;
+  width: 100%;
+  padding: 8px 0;
+  margin: 5px 0;
+  border-radius: 3px;
+  border: 2px solid #18122b;
+  cursor: pointer;
+}
+
+.button :hover {
+  background-color: white;
+  color: #18122b;
 }

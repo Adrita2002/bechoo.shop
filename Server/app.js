@@ -203,16 +203,16 @@ app.get("/category/products/:categoryname", async (req, res) => {
 });
 
 //---fetch individual item details
-app.get("/individual/item/get/:userid", async (req, res) => {
-  try {
-    // console.log(req.params, "...params");
-    const id = req.params.userid;
-    const item = await Product.find({ _id: id });
-    // console.log(item, "individual item");
-    res.status(200).json(item);
-  } catch (err) {
-    console.log(err, "error");
-    res.status(500).json(err.message);
-  }
+app.get("/individual/item/get/:userid", (req, res) => {
+  const id = req.params.userid;
+  Product.find({ _id: id })
+    .populate("userId")
+    .then((p) => {
+      res.status(200).json(p);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
+
 mongoose.set("strictQuery", false);
