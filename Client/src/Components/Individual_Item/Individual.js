@@ -6,11 +6,13 @@ import Grid from "@mui/material/Grid";
 import Carousel from "react-material-ui-carousel";
 import { Paper, Button } from "@mui/material";
 import axios from "axios";
+
 const Individual = () => {
   const { userId } = useParams();
   const [item, setItem] = useState([]);
   const [details, setDetails] = useState({});
-  const [user, setUser] = useState({});
+  const [seller, setSeller] = useState({});
+  const [user, setUser] = useState("");
   // let item = [];
   useEffect(() => {
     (async () => {
@@ -35,12 +37,12 @@ const Individual = () => {
           setDetails(allDetails);
           // console.log(details, "details");
 
-          const userDetails = {
+          const sellerDetails = {
             name: res.data[0].userId.name,
             email: res.data[0].userId.email,
             phone: res.data[0].userId.phone,
           };
-          setUser(userDetails);
+          setSeller(sellerDetails);
           // console.log(user, "user info");
         })
         .catch((err) => {
@@ -49,6 +51,47 @@ const Individual = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      (async () => {
+        axios
+          .get("/user/info", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            if (res.data.data) {
+              // console.log(res.data.data);
+              setUser(res.data.data._id);
+              // console.log(user, "user ID");
+            }
+          });
+      })();
+    }
+  }, []);
+  const handleClick = () => {
+    axios
+      .post("http://localhost:8000/post/cart/add", {
+        userId: user,
+        productId: userId,
+      })
+      .then((res) => {
+        console.log("Data sent", res);
+        alert("Item Added to Cart");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //---Payment---
+  const checkoutHandler = async (price) => {
+    const data = await axios.post("http://localhost:8000/payment", {
+      amount: price,
+    });
+
+    console.log(data);
+  };
   return (
     <div className="itembody">
       <div className="random-filler">
@@ -72,10 +115,12 @@ const Individual = () => {
           <div className="grid-item" id="g2">
             <h1>Price - Rs. {details.price}</h1>
             <div className="button">
-              <button>Order Now</button>
+              <button onClick={() => checkoutHandler(details.price)}>
+                Order Now
+              </button>
             </div>
             <div className="button">
-              <button>Add to Cart</button>
+              <button onClick={handleClick}>Add to Cart</button>
             </div>
           </div>
         </Grid>
@@ -88,10 +133,10 @@ const Individual = () => {
         </Grid>
         <Grid item xs={4}>
           <div className="grid-item">
-            <h1>Seller - {user.name}</h1>
-            <h3>Email - {user.email}</h3>
+            <h1>Seller - {seller.name}</h1>
+            <h3>Email - {seller.email}</h3>
 
-            <h3>Phone Number - {user.phone}</h3>
+            <h3>Phone Number - {seller.phone}</h3>
             <div className="button">
               <button>Chat Now</button>
             </div>
@@ -101,5 +146,4 @@ const Individual = () => {
     </div>
   );
 };
-
 export default Individual;

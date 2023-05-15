@@ -68,13 +68,16 @@ const Navbar = () => {
         <SearchBox placeholder="Search for items..." data={ItemData} />
 
         <div className="btn-wrapper">
-          <Badge badgeContent={4} color="secondary">
-            <ChatBubbleOutlineIcon color="white" />
-          </Badge>
+          <ChatBubbleOutlineIcon color="white" className="icon-func" />
 
-          <Badge badgeContent={4} color="secondary">
-            <ShoppingCartIcon color="white" />
-          </Badge>
+          <ShoppingCartIcon
+            color="white"
+            className="icon-func"
+            onClick={() => {
+              navigate("/cartitems");
+            }}
+          />
+
           <div className="account">
             <Button
               id="basic-button"

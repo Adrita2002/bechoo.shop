@@ -20,6 +20,7 @@ import YourOrders from "./Components/AccountDetails/YourOrders";
 import YourDetails from "./Components/AccountDetails/YourDetails";
 import ItemsOnSale from "./Components/AccountDetails/ItemsOnSale";
 import LikedItems from "./Components/AccountDetails/LikedItems";
+import CartPage from "./Components/CartPage/CartPage";
 
 function App() {
   const { pathname } = useLocation();
@@ -47,6 +48,7 @@ function App() {
             <Route path=":userId" element={<ItemsOnSale />} />
           </Route>
           <Route path="likeditems" element={<LikedItems />} />
+          <Route path="cartitems" element={<CartPage />} />
         </Route>
       </Routes>
       {pathname == "/login" || pathname == "/register" ? "" : <SellBar />}

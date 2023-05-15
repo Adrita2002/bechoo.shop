@@ -3,6 +3,8 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const app = express();
 const mongoose = require("mongoose");
+const Razorpay = require("razorpay");
+const shortid = require("shortid");
 mongoose.set("strictQuery", false);
 const bcrypt = require("bcrypt");
 
@@ -10,6 +12,7 @@ require("./db/conn");
 const protect = require("./middlewares/middleware");
 const User = require("./db/models/userDetails");
 const Product = require("./db/models/productDetails");
+const Cart = require("./db/models/cartDetails");
 const { JWT_SECRET } = require("./utils");
 const generatePresignedUrl = require("./s3");
 
@@ -113,9 +116,6 @@ app.post("/s3Url", async (req, res) => {
 app.post("/productdetails", (req, res) => {
   // console.log(req.body);
   try {
-    // console.log(req.body)
-    // const oldUser = await User.find({email:req.body.email});
-    // if(oldUser) return res.send('User exists');
     const product = new Product({
       userId: req.body.userId,
       name: req.body.name,
@@ -126,10 +126,6 @@ app.post("/productdetails", (req, res) => {
       other: req.body.other,
       images: req.body.images,
     });
-    // console.log(user)
-    // await user.save().then(()=>{
-    //     res.status(201).send(user)
-    // }).catch((err)=>res.status(400).send(err))
 
     product.save();
     res.json(product);
@@ -213,6 +209,61 @@ app.get("/individual/item/get/:userid", (req, res) => {
     .catch((err) => {
       res.status(500).json(err);
     });
+});
+
+//----Add items to cart----
+app.post("/post/cart/add", (req, res) => {
+  try {
+    const cart = new Cart({
+      userId: req.body.userId,
+      productId: req.body.productId,
+    });
+    cart.save();
+    res.json(cart);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+//----Fetch items added to cart by a user----
+app.get("/cart/items/get/:userId", (req, res) => {
+  const id = req.params.userId;
+  Cart.find({ userId: id })
+    .populate("productId")
+    .then((p) => {
+      res.status(200).json(p);
+      // console.log(p, "cart items.....");
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
+//----Payment Integration----
+const instance = new Razorpay({
+  key_id: "rzp_test_a2toFocSoOWHYM",
+  key_secret: "A07eHHIUbbheV9bqVTNwfPla",
+});
+
+//Create order
+app.post("/payment", async (req, res) => {
+  try {
+    var options = {
+      amount: Number(req.body.amount * 100),
+      currency: "INR",
+    };
+    const order = await instance.orders.create(options);
+
+    res.status(200).json({
+      success: true,
+      data: order,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      data: err,
+    });
+  }
 });
 
 mongoose.set("strictQuery", false);

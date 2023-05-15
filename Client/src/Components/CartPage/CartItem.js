@@ -6,12 +6,11 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import "./Sale.css";
-const SaleItem = (props) => {
-  // console.log(props?.id);
+import "./Cart.css";
+const CartItem = (props) => {
   const navigate = useNavigate();
   return (
-    <Card className="sale-card">
+    <Card className="item-card">
       <CardContent>
         <Typography variant="h5" component="div">
           {props?.name}
@@ -37,4 +36,4 @@ const SaleItem = (props) => {
   );
 };
 
-export default SaleItem;
+export default CartItem;
