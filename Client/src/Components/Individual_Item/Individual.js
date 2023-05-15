@@ -12,7 +12,7 @@ const Individual = () => {
   const [item, setItem] = useState([]);
   const [details, setDetails] = useState({});
   const [seller, setSeller] = useState({});
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
   // let item = [];
   useEffect(() => {
     (async () => {
@@ -64,7 +64,7 @@ const Individual = () => {
           .then((res) => {
             if (res.data.data) {
               // console.log(res.data.data);
-              setUser(res.data.data._id);
+              setUser(res.data.data);
               // console.log(user, "user ID");
             }
           });
@@ -85,12 +85,42 @@ const Individual = () => {
   };
 
   //---Payment---
-  const checkoutHandler = async (price) => {
-    const data = await axios.post("http://localhost:8000/payment", {
-      amount: price,
-    });
+  const checkoutHandler = async () => {
+    const dataKey = await axios.get("http://localhost:8000/getkey");
 
-    console.log(data);
+    const data = await axios
+      .post("http://localhost:8000/payment", {
+        amount: details.price,
+      })
+      .then((res) => {
+        console.log(res, "...payment data");
+        var options = {
+          key: dataKey.key,
+          amount: res.data.order.amount,
+          currency: "INR",
+          name: "Bechoo",
+          description: "Test Transaction",
+          image: "https://example.com/your_logo",
+          order_id: res.data.order.id,
+          callback_url: "http://localhost:8000/paymentverification",
+          prefill: {
+            name: user.name,
+            email: user.email,
+            contact: user.phone,
+          },
+          notes: {
+            address: "Razorpay Corporate Office",
+          },
+          theme: {
+            color: "#251b37",
+          },
+        };
+        const rzp1 = new window.Razorpay(options);
+        rzp1.open();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="itembody">
@@ -115,9 +145,7 @@ const Individual = () => {
           <div className="grid-item" id="g2">
             <h1>Price - Rs. {details.price}</h1>
             <div className="button">
-              <button onClick={() => checkoutHandler(details.price)}>
-                Order Now
-              </button>
+              <button onClick={checkoutHandler}>Order Now</button>
             </div>
             <div className="button">
               <button onClick={handleClick}>Add to Cart</button>

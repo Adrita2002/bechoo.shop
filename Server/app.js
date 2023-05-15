@@ -7,6 +7,7 @@ const Razorpay = require("razorpay");
 const shortid = require("shortid");
 mongoose.set("strictQuery", false);
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 require("./db/conn");
 const protect = require("./middlewares/middleware");
@@ -241,14 +242,14 @@ app.get("/cart/items/get/:userId", (req, res) => {
 
 //----Payment Integration----
 const instance = new Razorpay({
-  key_id: "rzp_test_a2toFocSoOWHYM",
-  key_secret: "A07eHHIUbbheV9bqVTNwfPla",
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 //Create order
 app.post("/payment", async (req, res) => {
   try {
-    var options = {
+    const options = {
       amount: Number(req.body.amount * 100),
       currency: "INR",
     };
@@ -256,13 +257,37 @@ app.post("/payment", async (req, res) => {
 
     res.status(200).json({
       success: true,
-      data: order,
+      order,
     });
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      data: err,
-    });
+    console.log(err);
+  }
+});
+
+//payment verification
+app.post("/paymentverification", async (req, res) => {
+  console.log(req.body, "....................payment info");
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+    req.body;
+
+  const body = razorpay_order_id + "|" + razorpay_payment_id;
+  const expectedSignature = crypto
+    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+    .update(body.toString())
+    .digest("hex");
+  console.log("sig received", razorpay_signature);
+  console.log("sig generated", expectedSignature);
+  res.status(200).json({
+    success: true,
+  });
+});
+
+app.get("/getkey", (req, res) => {
+  try {
+    const key = process.env.RAZORPAY_KEY_ID;
+    res.status(200).json(key);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
