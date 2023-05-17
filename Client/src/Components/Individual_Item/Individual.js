@@ -88,7 +88,7 @@ const Individual = () => {
   const checkoutHandler = async () => {
     const dataKey = await axios.get("http://localhost:8000/getkey");
 
-    const data = await axios
+    await axios
       .post("http://localhost:8000/payment", {
         amount: details.price,
       })
@@ -102,7 +102,19 @@ const Individual = () => {
           description: "Test Transaction",
           image: "https://example.com/your_logo",
           order_id: res.data.order.id,
-          callback_url: "http://localhost:8000/paymentverification",
+          // callback_url: "http://localhost:8000/paymentverification",
+          handler: async function (response) {
+            const data = {
+              orderCreationId: res.data.order.id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpayOrderId: response.razorpay_order_id,
+              razorpaySignature: response.razorpay_signature,
+              userId: user._id,
+              amount: res.data.order.amount,
+              // orderId,
+            };
+            await axios.post(`http://localhost:8000/paymentverification`, data);
+          },
           prefill: {
             name: user.name,
             email: user.email,

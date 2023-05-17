@@ -8,7 +8,7 @@ const shortid = require("shortid");
 mongoose.set("strictQuery", false);
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-
+const cors = require("cors");
 require("./db/conn");
 const protect = require("./middlewares/middleware");
 const User = require("./db/models/userDetails");
@@ -17,6 +17,7 @@ const Cart = require("./db/models/cartDetails");
 const { JWT_SECRET } = require("./utils");
 const generatePresignedUrl = require("./s3");
 
+app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 8000;
 
@@ -266,20 +267,32 @@ app.post("/payment", async (req, res) => {
 
 //payment verification
 app.post("/paymentverification", async (req, res) => {
-  console.log(req.body, "....................payment info");
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-    req.body;
+  // console.log(req.body, "....................payment info");
+  try {
+    const { razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
 
-  const body = razorpay_order_id + "|" + razorpay_payment_id;
-  const expectedSignature = crypto
-    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-    .update(body.toString())
-    .digest("hex");
-  console.log("sig received", razorpay_signature);
-  console.log("sig generated", expectedSignature);
-  res.status(200).json({
-    success: true,
-  });
+    const body = razorpayOrderId + "|" + razorpayPaymentId;
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(body.toString())
+      .digest("hex");
+    // console.log("sig received", razorpaySignature);
+    // console.log("sig generated", expectedSignature);
+    if (expectedSignature == razorpaySignature) {
+      // console.log("payment is successful");
+      return res.redirect(
+        `http://localhost:8000/paymentsuccess?refernce=${razorpayPaymentId}`
+      );
+    } else {
+      res.status(400).json({
+        success: false,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      data: err,
+    });
+  }
 });
 
 app.get("/getkey", (req, res) => {
