@@ -65,7 +65,7 @@ const Navbar = () => {
         >
           Bechoo
         </div>
-        <SearchBox placeholder="Search for items..." data={ItemData} />
+        <SearchBox placeholder="Search for items..." />
 
         <div className="btn-wrapper">
           <ChatBubbleOutlineIcon color="white" className="icon-func" />
