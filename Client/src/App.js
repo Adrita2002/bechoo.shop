@@ -21,6 +21,7 @@ import YourDetails from "./Components/AccountDetails/YourDetails";
 import ItemsOnSale from "./Components/AccountDetails/ItemsOnSale";
 import LikedItems from "./Components/AccountDetails/LikedItems";
 import CartPage from "./Components/CartPage/CartPage";
+import PaymentSuccess from "./Components/Payment/PaymentSuccess";
 
 function App() {
   const { pathname } = useLocation();
@@ -50,6 +51,7 @@ function App() {
           <Route path="likeditems" element={<LikedItems />} />
           <Route path="cartitems" element={<CartPage />} />
         </Route>
+        <Route path="paymentsuccess" element={<PaymentSuccess />} />
       </Routes>
       {pathname == "/login" || pathname == "/register" ? "" : <SellBar />}
     </div>

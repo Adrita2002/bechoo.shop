@@ -14,6 +14,7 @@ const protect = require("./middlewares/middleware");
 const User = require("./db/models/userDetails");
 const Product = require("./db/models/productDetails");
 const Cart = require("./db/models/cartDetails");
+const Payment = require("./db/models/paymentDetails");
 const { JWT_SECRET } = require("./utils");
 const generatePresignedUrl = require("./s3");
 const corsOptions = {
@@ -285,9 +286,17 @@ app.post("/paymentverification", async (req, res) => {
     console.log("sig generated", expectedSignature);
     if (expectedSignature == razorpaySignature) {
       // console.log("payment is successful");
-      return res.redirect(
-        `http://localhost:3000/paymentsuccess?refernce=${razorpayPaymentId}`
-      );
+      //add to database
+      const payment = new Payment({
+        razorpayOrderId: razorpayOrderId,
+        razorpayPaymentId: razorpayPaymentId,
+        razorpaySignature: razorpaySignature,
+      });
+      payment.save();
+      res.status(200).json({
+        success: true,
+        data: payment,
+      });
     } else {
       res.status(400).json({
         success: false,

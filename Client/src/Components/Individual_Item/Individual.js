@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Individual.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import IndividualCards from "./IndividualCards";
 import Grid from "@mui/material/Grid";
 import Carousel from "react-material-ui-carousel";
@@ -13,6 +13,7 @@ const Individual = () => {
   const [details, setDetails] = useState({});
   const [seller, setSeller] = useState({});
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
   // let item = [];
   useEffect(() => {
     (async () => {
@@ -113,7 +114,17 @@ const Individual = () => {
               amount: res.data.order.amount,
               // orderId,
             };
-            axios.post(`http://localhost:8000/paymentverification`, data);
+            axios
+              .post(`http://localhost:8000/paymentverification`, data)
+              .then((res) => {
+                navigate(
+                  `/paymentsuccess?reference=${response.razorpay_payment_id}`
+                );
+              })
+              .catch((err) => {
+                console.log(err);
+                alert("Payment Failure");
+              });
           },
           prefill: {
             name: user.name,
