@@ -16,8 +16,13 @@ const Product = require("./db/models/productDetails");
 const Cart = require("./db/models/cartDetails");
 const { JWT_SECRET } = require("./utils");
 const generatePresignedUrl = require("./s3");
-
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+// app.use(cors());
 app.use(express.json());
 const port = process.env.PORT || 8000;
 
@@ -276,12 +281,12 @@ app.post("/paymentverification", async (req, res) => {
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
       .update(body.toString())
       .digest("hex");
-    // console.log("sig received", razorpaySignature);
-    // console.log("sig generated", expectedSignature);
+    console.log("sig received", razorpaySignature);
+    console.log("sig generated", expectedSignature);
     if (expectedSignature == razorpaySignature) {
       // console.log("payment is successful");
       return res.redirect(
-        `http://localhost:8000/paymentsuccess?refernce=${razorpayPaymentId}`
+        `http://localhost:3000/paymentsuccess?refernce=${razorpayPaymentId}`
       );
     } else {
       res.status(400).json({

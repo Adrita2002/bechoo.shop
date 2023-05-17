@@ -113,7 +113,7 @@ const Individual = () => {
               amount: res.data.order.amount,
               // orderId,
             };
-            await axios.post(`http://localhost:8000/paymentverification`, data);
+            axios.post(`http://localhost:8000/paymentverification`, data);
           },
           prefill: {
             name: user.name,
