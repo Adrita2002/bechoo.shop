@@ -22,13 +22,14 @@ const CategoryPage = () => {
           console.log(err);
         });
     })();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="category-page">
       <h1 className="category-title">Items related to {userId}</h1>
       <Grid container spacing={4}>
         {categoryItems.map((data) => {
+          console.log(data);
           return (
             <Grid item xs={12} sm={6} md={3}>
               <ItemCards
